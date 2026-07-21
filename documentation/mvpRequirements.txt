@@ -1,0 +1,101 @@
+# Define MVP Scope
+
+Feature
+Description
+Success Criteria
+1. Automated Data Collection
+Automatically retrieve financial market data from the Schwab API after the market closes.
+System successfully runs on a schedule and retrieves updated market data without manual input.
+2. Stock Watchlist Management
+Maintain a configurable list of stocks that the system will collect data for.
+Users can add, remove, and modify stock symbols included in data collection(hopefully with UI).
+3. Market Data Retrieval
+Collect required financial information for each stock in the watchlist.
+System successfully retrieves requested market data for all tracked stocks.
+4. Data Processing and Normalization
+Convert external Schwab API responses into a consistent internal data format.
+Data is cleaned, validated, and formatted before storage.
+5. Database Storage
+Store collected financial data in a structured database for future access and analysis.
+Historical market data is saved correctly and can be retrieved from the database.
+6. Automated Scheduling
+Schedule the data pipeline to execute automatically after market close.
+Pipeline runs daily at the configured time without requiring manual execution.
+7. Data Validation
+Verify that downloaded data is complete and accurate before saving.
+Invalid, missing, or duplicate records are detected and handled properly.
+8. Logging and Error Handling
+Record pipeline activity and handle failures during data collection or storage.
+The system provides useful logs and can recover from common errors.
+9. API Access Layer
+Create backend endpoints that allow applications to retrieve stored financial data.
+Users can request stored market data through documented API endpoints.
+
+Optional Enhancements
+10. Web User Interface
+Create a simple web interface for users to view and interact with stored financial data.
+Users can view stock information without directly querying the API.
+11. Data Visualization
+Display stock price history using charts and graphs.
+Users can visually analyze historical price movements.
+12. Search and Filtering
+Allow users to search stocks and filter historical data.
+Users can quickly locate specific market information.
+13. User Configuration Settings
+Allow users to modify tracked stocks and collection preferences through the interface.
+Users can manage pipeline settings without changing code.
+
+
+# Workflow
+Every day at 4:30 PM
+
+        ↓
+
+Scheduler starts pipeline
+
+        ↓
+
+Read stock list
+
+        ↓
+
+Request data from Schwab
+
+        ↓
+
+Process data
+
+        ↓
+
+Save into database
+
+        ↓
+
+Log completion
+
+# Required Information
+Symbol
+Date
+Open Price
+High Price
+Low Price
+Close Price
+Volume
+
+# Architecture
+           Schwab API
+                  |
+                  |
+   Data Collection Script
+                  |
+                  |
+   Data Processing Layer
+                  |
+                  |
+             Database
+                  |
+                  |
+              FastAPI
+                  |
+                  |
+  Optional Web Dashboard

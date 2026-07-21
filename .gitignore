@@ -1,0 +1,45 @@
+# -------------------------------------------------------------------
+# Python Files
+# -------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# -------------------------------------------------------------------
+# Flutter / Dart Files
+# -------------------------------------------------------------------
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.ephemeral
+
+# Android specific
+.gradle/
+captures/
+/android/app/src/main/res/values/strings.xml
+**/android/key.properties
+
+# iOS specific
+.mtj.tmp/
+*.escript
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+
+# -------------------------------------------------------------------
+# IDEs and Tools
+# -------------------------------------------------------------------
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+.DS_Store
