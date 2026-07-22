@@ -1,0 +1,5 @@
+requests == 2.34.2
+fastapi[standard] == 0.139.2
+sqlalchemy == 2.0.51
+pandas == 3.0.3
+apscheduler == 3.11.3
