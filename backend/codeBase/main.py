@@ -3,20 +3,26 @@ from fastapi import FastAPI
 from urllib.parse import urlencode
 import os
 from dotenv import load_dotenv 
+from pathlib import Path
 
-load_dotenv()
+env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+
+load_dotenv(dotenv_path = env_path)
 
 clientID = os.getenv("SCHWAB_APP_KEY")
 clientSecret = os.getenv("SCHWAB_APP_SECRET")
 callbackURL = os.getenv("SCHWAB_CALLBACK_URL")
 tokenURL = "https://api.schwabapi.com/v1/oauth/token"
 
+params = {
+    "response_type": "code",
+    "client_id": clientID,
+    "redirect_uri": callbackURL
+}
+
 authorizationURL = (
-    "https://api.schwabapi.com/v1/oauth/authorize"
-    f"?response_type=code"
-    f"&client_id={clientID}"
-    f"&scope=readonly"
-    f"&redirect_uri={callbackURL}"
+    "https://api.schwabapi.com/v1/oauth/authorize?"
+    + urlencode(params)
 )
 
 def get_tokens(auth_code):
