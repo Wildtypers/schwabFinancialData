@@ -1,0 +1,2 @@
+ngrok http 8000
+https://endurance-presuming-catapult.ngrok-free.dev
