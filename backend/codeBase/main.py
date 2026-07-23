@@ -13,6 +13,8 @@ clientID = os.getenv("SCHWAB_APP_KEY")
 clientSecret = os.getenv("SCHWAB_APP_SECRET")
 callbackURL = os.getenv("SCHWAB_CALLBACK_URL")
 tokenURL = "https://api.schwabapi.com/v1/oauth/token"
+SCHWAB_API_BASE = "https://api.schwabapi.com/marketdata/v1"
+accesstoken = os.getenv("SCHWAB_ACCESS_TOKEN")
 
 params = {
     "response_type": "code",
@@ -42,6 +44,28 @@ def get_tokens(auth_code):
 
     return response.json()
 
+def get_schwab_quote(symbol, access_token):
+
+    url = f"{SCHWAB_API_BASE}/quotes"
+
+    params = {
+        "symbols": symbol
+    }
+
+    headers = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    response = requests.get(
+        url,
+        headers=headers,
+        params=params
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
 app = FastAPI()
 
 @app.get("/")
@@ -60,3 +84,16 @@ def callback(code: str):
     tokens = get_tokens(code)
 
     return tokens
+
+@app.get("/stock/{symbol}")
+def stock(symbol: str):
+
+    access_token = accesstoken
+    print("ACCESS TOKEN:", access_token)
+
+    data = get_schwab_quote(
+        symbol,
+        access_token
+    )
+
+    return data
